@@ -1,0 +1,72 @@
+/* VOICE: playful, spooky-cute arcade
+   IDEA: a neon sign glowing over a midnight graveyard
+   PICTURE: the game itself, full screen on phones, a glowing arcade cabinet screen on desktop
+   COLOUR and TYPE: ink-blue night, cyan ghost, magenta graves, lime moon. Monoton for neon titles, Fredoka for numbers and text
+   LAYOUT: HUD at the top inside safe areas, centred overlay cards, 44px+ controls */
+:root{color-scheme:dark;--bg:#04060e;--ink:#e8fbff;--cyan:#7ff7ff;--mag:#ff4fd8;--lime:#c6ff5c;--vio:#b48cff;--teal:#2dffc4;--card:rgba(8,12,30,.78)}
+*{box-sizing:border-box;min-width:0;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:16px/1.5 Fredoka,ui-rounded,system-ui,sans-serif;overflow:hidden;overscroll-behavior:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 80% at 50% 0%,#0d1838 0%,var(--bg) 60%)}
+.stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;touch-action:none;display:grid;place-items:center;background:#060914;cursor:pointer}
+canvas{display:block}
+.cap{display:none;margin-top:14px;font-size:14px;color:#8fa6c9;letter-spacing:.01em}
+.cap b{color:var(--cyan);font-weight:500}
+@media (min-width:700px) and (min-height:620px){
+  .stage{height:min(88dvh,880px);width:auto;aspect-ratio:9/15;border-radius:26px;box-shadow:0 0 0 2px #2dffc455,0 0 70px #2dffc42a,0 30px 90px #000d}
+  .cap{display:block}
+}
+.hud{position:absolute;inset:0 0 auto 0;display:flex;justify-content:space-between;align-items:flex-start;padding:calc(env(safe-area-inset-top) + 12px) calc(env(safe-area-inset-right) + 12px) 0 calc(env(safe-area-inset-left) + 12px);pointer-events:none;z-index:3}
+.btns{display:flex;gap:8px}
+.ib{pointer-events:auto;width:46px;height:46px;border-radius:14px;border:1.5px solid #7ff7ff55;background:rgba(6,10,26,.55);color:var(--cyan);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:transform .1s}
+.ib:active{transform:scale(.92)}
+.ib:focus-visible,.btn:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.ib svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ib.off{color:#6b7a99;border-color:#6b7a9944}
+.ib.off .on-only{display:none}.ib:not(.off) .off-only{display:none}
+#pauseBtn{visibility:hidden}
+.mid{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top) + 58px);text-align:center;pointer-events:none;z-index:2}
+#score{font-weight:700;font-size:clamp(48px,11vh,76px);line-height:1;color:#fff;text-shadow:0 0 10px var(--cyan),0 0 26px #7ff7ff88,0 3px 0 #0a2a40;opacity:0;transition:opacity .2s}
+#score.on{opacity:1}
+.pills{display:flex;justify-content:center;gap:8px;margin-top:10px}
+.pill{display:none;align-items:center;gap:6px;padding:4px 10px 4px 6px;border-radius:99px;font-size:14px;font-weight:500;background:rgba(6,10,26,.6);border:1.5px solid currentColor}
+.pill.on{display:inline-flex}
+.pill svg{width:18px;height:18px}
+#pShield{color:var(--lime)}#pPhase{color:var(--vio)}
+.bar{width:46px;height:5px;border-radius:3px;background:#b48cff33;overflow:hidden}.bar i{display:block;height:100%;background:var(--vio);width:100%}
+.ov{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:24px max(18px,env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));z-index:4}
+.ov.on{display:flex;animation:fade .25s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.card{width:min(360px,100%);text-align:center;padding:26px 22px 22px;border-radius:24px;background:var(--card);border:1.5px solid #7ff7ff33;box-shadow:0 0 40px #7ff7ff18,inset 0 0 30px #7ff7ff0c;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+h1,h2{font-family:Monoton,Fredoka,sans-serif;font-weight:400;margin:0;line-height:1.05;color:#fff;text-wrap:balance}
+h1{font-size:clamp(44px,13vw,58px);text-shadow:0 0 8px var(--cyan),0 0 22px var(--cyan),0 0 44px #7ff7ff66}
+h2{font-size:clamp(34px,10vw,44px);text-shadow:0 0 8px var(--mag),0 0 24px var(--mag)}
+.sub{margin:10px 0 18px;color:#b9cbe6;font-size:17px}
+.legend{display:grid;gap:10px;text-align:left;margin:0 0 20px;padding:0;list-style:none}
+.legend li{display:flex;gap:12px;align-items:center;font-size:15px;color:#cfe0f5;line-height:1.3}
+.legend svg{flex:none;width:34px;height:34px}
+.legend b{display:block;font-weight:700}
+.legend .s b{color:var(--lime)}.legend .p b{color:var(--vio)}
+.go{font-size:20px;font-weight:700;color:var(--cyan);text-shadow:0 0 12px #7ff7ff99;animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
+.small{margin-top:10px;font-size:13px;color:#8396b8}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 14px}
+.stat{padding:12px 8px;border-radius:16px;background:#ffffff08;border:1px solid #ffffff14}
+.stat span{display:block;font-size:14px;color:#9fb2d2}
+.stat strong{display:block;font-size:40px;line-height:1.1;color:#fff}
+.stat.b strong{color:var(--lime);text-shadow:0 0 14px #c6ff5c77}
+.nb{display:none;margin:0 auto 14px;width:max-content;padding:3px 12px;border-radius:99px;background:var(--lime);color:#122;font-weight:700;font-size:14px}
+.nb.on{display:block;animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.3)}}
+.btn{display:block;width:100%;min-height:54px;border:0;border-radius:16px;font:700 19px Fredoka,sans-serif;color:#061018;background:var(--cyan);box-shadow:0 0 24px #7ff7ff66,0 4px 0 #2a9fb0;cursor:pointer;transition:transform .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 0 18px #7ff7ff55,0 1px 0 #2a9fb0}
+#hint{align-items:flex-end;pointer-events:none;padding-bottom:calc(18vh + env(safe-area-inset-bottom))}
+#hint .go{font-size:22px}
+@media (prefers-reduced-motion:reduce){.go{animation:none}.ov.on{animation:none}}
+[hidden]{display:none!important}
+.install{margin-top:14px}
+.btn2{min-height:46px;padding:0 20px;border-radius:14px;border:1.5px solid var(--lime);background:transparent;color:var(--lime);font:700 16px Fredoka,sans-serif;cursor:pointer}
+.btn2:active{transform:scale(.96)}
+.btn2:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.ios{margin:12px 0 0;font-size:14px;color:#b9cbe6}
+.ios b{color:var(--lime);font-weight:500}
+@media (display-mode:standalone),(display-mode:fullscreen){.cap{display:none}}

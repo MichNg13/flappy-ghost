@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "name": "Boo Flap",
+  "short_name": "Boo Flap",
+  "description": "A neon ghost floats between the graves. Tap to float, grab shields and phase power-ups, and chase your best score.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "portrait",
+  "background_color": "#060914",
+  "theme_color": "#060914",
+  "categories": ["games", "entertainment"],
+  "lang": "en",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [
+    { "src": "screenshots/title-narrow.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Title screen with the Shield and Phase power-ups" },
+    { "src": "screenshots/play-narrow.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Floating between neon graves" },
+    { "src": "screenshots/title-wide.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Boo Flap on a desktop screen" }
+  ]
+}
